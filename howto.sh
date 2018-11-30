@@ -5,7 +5,11 @@ set -x
 set -o pipefail
 
 ID=$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM
-docker build -t $ID .
+docker build \
+       -t $ID \
+       --build-arg UID=$(id -u) \
+       --build-arg GID=$(id -g) \
+       .
 
 SHARED=$(pwd)/output/
 if [ ! -d "$SHARED" ]
